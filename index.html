@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inkstone 博客后台管理系统</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <span class="brand-mark">I</span>
+        <div>
+          <h1>Inkstone CMS</h1>
+          <p>博客后台管理系统</p>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <button class="nav-item active" data-view="dashboard">仪表盘</button>
+        <button class="nav-item" data-view="posts">文章管理</button>
+        <button class="nav-item" data-view="taxonomy">分类与标签</button>
+        <button class="nav-item" data-view="comments">评论审核</button>
+        <button class="nav-item" data-view="settings">系统设置</button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <p>支持文章、分类、评论和站点配置的统一管理。</p>
+      </div>
+    </aside>
+
+    <main class="main">
+      <section class="hero">
+        <div>
+          <p class="eyebrow">Editorial control center</p>
+          <h2>为你的博客准备一套干净、直接、可维护的后台。</h2>
+        </div>
+        <button id="logoutButton" class="ghost-button" type="button">退出登录</button>
+      </section>
+
+      <section id="loginPanel" class="login-panel">
+        <div class="login-card">
+          <p class="eyebrow">Secure access</p>
+          <h3>管理员登录</h3>
+          <p class="login-tip">默认账号：`admin`，默认密码：`123456`</p>
+          <form id="loginForm" class="login-form">
+            <label>
+              用户名
+              <input id="username" name="username" type="text" placeholder="请输入用户名" required>
+            </label>
+            <label>
+              密码
+              <input id="password" name="password" type="password" placeholder="请输入密码" required>
+            </label>
+            <button class="primary-button" type="submit">登录后台</button>
+          </form>
+        </div>
+      </section>
+
+      <section id="appPanel" class="app-panel hidden">
+        <div id="dashboardView" class="view active">
+          <div class="stats-grid" id="statsGrid"></div>
+          <div class="panel-grid two-columns">
+            <article class="panel">
+              <div class="panel-head">
+                <h3>最近文章</h3>
+                <button class="ghost-button small" data-jump="posts" type="button">去管理</button>
+              </div>
+              <div id="recentPosts" class="stack-list"></div>
+            </article>
+            <article class="panel">
+              <div class="panel-head">
+                <h3>待审核评论</h3>
+                <button class="ghost-button small" data-jump="comments" type="button">立即处理</button>
+              </div>
+              <div id="pendingComments" class="stack-list"></div>
+            </article>
+          </div>
+        </div>
+
+        <div id="postsView" class="view">
+          <div class="panel-grid two-columns">
+            <article class="panel">
+              <div class="panel-head">
+                <h3 id="postFormTitle">发布新文章</h3>
+              </div>
+              <form id="postForm" class="editor-form">
+                <input type="hidden" id="postId">
+                <label>
+                  标题
+                  <input id="postTitle" type="text" placeholder="例如：如何搭建个人博客" required>
+                </label>
+                <label>
+                  摘要
+                  <textarea id="postExcerpt" rows="3" placeholder="一句话概括文章内容"></textarea>
+                </label>
+                <div class="split">
+                  <label>
+                    分类
+                    <select id="postCategory"></select>
+                  </label>
+                  <label>
+                    状态
+                    <select id="postStatus">
+                      <option value="draft">草稿</option>
+                      <option value="published">已发布</option>
+                    </select>
+                  </label>
+                </div>
+                <label>
+                  标签
+                  <input id="postTags" type="text" placeholder="多个标签用中文逗号或英文逗号分隔">
+                </label>
+                <label>
+                  正文
+                  <textarea id="postContent" rows="10" placeholder="写下正文内容..." required></textarea>
+                </label>
+                <div class="form-actions">
+                  <button class="primary-button" type="submit">保存文章</button>
+                  <button id="resetPostForm" class="ghost-button" type="button">重置</button>
+                </div>
+              </form>
+            </article>
+
+            <article class="panel">
+              <div class="panel-head">
+                <h3>文章列表</h3>
+                <input id="postSearch" class="search-input" type="search" placeholder="搜索标题或标签">
+              </div>
+              <div id="postTable" class="table-list"></div>
+            </article>
+          </div>
+        </div>
+
+        <div id="taxonomyView" class="view">
+          <div class="panel-grid two-columns">
+            <article class="panel">
+              <div class="panel-head">
+                <h3>分类管理</h3>
+              </div>
+              <form id="categoryForm" class="inline-form">
+                <input id="categoryName" type="text" placeholder="新增分类名称" required>
+                <button class="primary-button" type="submit">添加分类</button>
+              </form>
+              <div id="categoryList" class="token-list"></div>
+            </article>
+
+            <article class="panel">
+              <div class="panel-head">
+                <h3>标签管理</h3>
+              </div>
+              <form id="tagForm" class="inline-form">
+                <input id="tagName" type="text" placeholder="新增标签名称" required>
+                <button class="primary-button" type="submit">添加标签</button>
+              </form>
+              <div id="tagList" class="token-list"></div>
+            </article>
+          </div>
+        </div>
+
+        <div id="commentsView" class="view">
+          <article class="panel">
+            <div class="panel-head">
+              <h3>评论审核</h3>
+            </div>
+            <div id="commentList" class="comment-list"></div>
+          </article>
+        </div>
+
+        <div id="settingsView" class="view">
+          <article class="panel">
+            <div class="panel-head">
+              <h3>站点设置</h3>
+            </div>
+            <form id="settingsForm" class="editor-form settings-form">
+              <label>
+                博客名称
+                <input id="siteName" type="text" required>
+              </label>
+              <label>
+                副标题
+                <input id="siteSubtitle" type="text" required>
+              </label>
+              <label>
+                管理邮箱
+                <input id="siteEmail" type="email" required>
+              </label>
+              <label>
+                首页公告
+                <textarea id="siteAnnouncement" rows="4"></textarea>
+              </label>
+              <button class="primary-button" type="submit">保存设置</button>
+            </form>
+          </article>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <script src="./app.js"></script>
+</body>
+</html>

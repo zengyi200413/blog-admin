@@ -1,36 +1,68 @@
 # Inkstone 博客后台管理系统
 
-这是一个无需安装依赖、打开 `index.html` 即可运行的博客后台管理系统原型，适合快速演示后台界面、管理流程和前端交互。
+这是一个完整的博客后台项目，采用 `Vue 3 + Vite + Element Plus` 构建管理端，采用 `Node.js + Express + MySQL` 提供接口与数据存储。
 
-## 功能
+## 功能概览
 
-- 管理员登录
+- JWT 登录认证
+- 基于角色的权限控制
 - 仪表盘统计
-- 文章新增、编辑、删除、搜索
+- 文章管理
+- 封面图上传
+- 富文本编辑
 - 分类与标签管理
 - 评论审核
+- 用户管理
 - 站点设置
-- 使用 `localStorage` 持久化数据
+- 深色主题切换
+- 响应式后台布局
 
-## 默认账号
+## 项目结构
 
-- 用户名：`admin`
-- 密码：`123456`
+- `client/`：Vue 3 管理端
+- `server/`：Express API 服务
+- `database.sql`：MySQL 初始化脚本
 
-## 使用方式
+## 本地启动
 
-1. 进入项目目录：`E:\work\blog-admin`
-2. 直接双击 `index.html`，或用任意静态服务器打开
+1. 安装依赖
 
-## 文件结构
+```bash
+npm install
+```
 
-- `index.html`：页面结构
-- `styles.css`：界面样式
-- `app.js`：业务逻辑和本地数据管理
+2. 初始化数据库
 
-## 后续可扩展方向
+- 创建 MySQL 数据库后执行 `database.sql`
+- 默认管理员：
+  - 用户名：`admin`
+  - 密码：`123456`
 
-- 接入真实后端 API
-- 增加封面上传和富文本编辑器
-- 增加角色权限管理
-- 接入文章分页、草稿箱、回收站
+3. 配置后端环境变量
+
+```bash
+copy server/.env.example server/.env
+```
+
+4. 启动前后端
+
+```bash
+npm run dev
+```
+
+- 前端默认地址：`http://localhost:5173`
+- 后端默认地址：`http://localhost:3000`
+
+## 技术说明
+
+- 前端使用 `Pinia` 管理登录态和主题
+- 富文本采用 `wangeditor`
+- 上传文件保存在 `server/uploads/`
+- 权限分为 `admin` 和 `editor`
+
+## 后续可扩展
+
+- 文章 SEO 字段
+- 媒体库
+- 操作日志
+- 回收站和定时发布

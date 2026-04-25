@@ -2,3 +2,9 @@ node_modules/
 dist/
 .DS_Store
 Thumbs.db
+.env
+.env.local
+client/node_modules/
+client/dist/
+server/node_modules/
+server/uploads/

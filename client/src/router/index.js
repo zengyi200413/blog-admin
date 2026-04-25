@@ -3,16 +3,32 @@ import { useAuthStore } from "../stores/auth";
 
 const routes = [
   {
+    path: "/",
+    component: () => import("../layouts/PublicLayout.vue"),
+    meta: { public: true },
+    children: [
+      { path: "", name: "home", component: () => import("../views/public/HomeView.vue") },
+      { path: "archive", name: "archive", component: () => import("../views/public/ArchiveView.vue"), meta: { public: true } },
+      { path: "search", name: "search", component: () => import("../views/public/SearchView.vue"), meta: { public: true } },
+      { path: "signin", name: "reader-signin", component: () => import("../views/public/ReaderLoginView.vue"), meta: { public: true } },
+      { path: "signup", name: "reader-signup", component: () => import("../views/public/ReaderRegisterView.vue"), meta: { public: true } },
+      { path: "me", name: "reader-center", component: () => import("../views/public/ReaderCenterView.vue"), meta: { public: true } },
+      { path: "category/:id", name: "category-posts", component: () => import("../views/public/CategoryView.vue"), meta: { public: true } },
+      { path: "tag/:id", name: "tag-posts", component: () => import("../views/public/TagView.vue"), meta: { public: true } },
+      { path: "post/:id", name: "post-detail", component: () => import("../views/public/PostDetailView.vue"), meta: { public: true } }
+    ]
+  },
+  {
     path: "/login",
     name: "login",
     component: () => import("../views/LoginView.vue"),
     meta: { public: true }
   },
   {
-    path: "/",
+    path: "/admin",
     component: () => import("../layouts/AdminLayout.vue"),
     children: [
-      { path: "", redirect: "/dashboard" },
+      { path: "", redirect: "/admin/dashboard" },
       { path: "dashboard", name: "dashboard", component: () => import("../views/DashboardView.vue") },
       { path: "posts", name: "posts", component: () => import("../views/PostsView.vue") },
       { path: "taxonomy", name: "taxonomy", component: () => import("../views/TaxonomyView.vue") },

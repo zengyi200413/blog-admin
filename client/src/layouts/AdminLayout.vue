@@ -12,15 +12,15 @@ const themeStore = useThemeStore();
 
 const menus = computed(() => {
   const items = [
-    { label: "仪表盘", path: "/dashboard", icon: DataBoard },
-    { label: "文章管理", path: "/posts", icon: Document },
-    { label: "分类标签", path: "/taxonomy", icon: FolderOpened },
-    { label: "评论审核", path: "/comments", icon: ChatDotRound },
-    { label: "系统设置", path: "/settings", icon: Setting }
+            { label: "仪表盘", path: "/admin/dashboard", icon: DataBoard },
+            { label: "文章管理", path: "/admin/posts", icon: Document },
+            { label: "分类标签", path: "/admin/taxonomy", icon: FolderOpened },
+            { label: "评论审核", path: "/admin/comments", icon: ChatDotRound },
+            { label: "系统设置", path: "/admin/settings", icon: Setting }
   ];
 
   if (authStore.user?.role === "admin") {
-    items.splice(4, 0, { label: "用户权限", path: "/users", icon: User });
+    items.splice(4, 0, { label: "用户权限", path: "/admin/users", icon: User });
   }
 
   return items;

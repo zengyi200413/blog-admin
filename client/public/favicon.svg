@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="inkstone" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#d77b47" />
+      <stop offset="100%" stop-color="#9a3f1e" />
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="18" fill="#2b1c13" />
+  <rect x="10" y="10" width="44" height="44" rx="14" fill="url(#inkstone)" />
+  <path d="M31 17h4v30h-4z" fill="#fff8f0" />
+  <path d="M24 21h18v4H24z" fill="#fff8f0" />
+</svg>

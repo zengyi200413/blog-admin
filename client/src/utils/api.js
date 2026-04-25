@@ -7,8 +7,11 @@ const api = axios.create({
 
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem("blog-admin-token");
+  const readerToken = localStorage.getItem("blog-reader-token");
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
+  } else if (readerToken) {
+    config.headers.Authorization = `Bearer ${readerToken}`;
   }
   return config;
 });

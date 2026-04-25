@@ -19,7 +19,7 @@ async function submit() {
     await formRef.value.validate();
     await authStore.login(form);
     ElMessage.success("登录成功");
-    router.push("/dashboard");
+    router.push("/admin/dashboard");
   } catch (error) {
     ElMessage.error(error.response?.data?.message || "登录失败");
   } finally {
